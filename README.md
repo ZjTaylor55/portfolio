@@ -1,2 +1,2 @@
 # portfolio
-#Simplay put just my portfolio of projects
+#Simply put just my portfolio of projects
