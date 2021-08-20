@@ -2,32 +2,7 @@
 import random
 from random import choice, randint
 
-rolls = []
-#Roll D4
-def d4 ():
-    return random(0,4)
-
-#Roll D6
-def d6 ():
-    return random(0,6)
-
-#Roll D8
-def d8 ():
-    return random(0,8)
-
-#Roll D10
-def d10 ():
-    return random(0,10)
-
-#Roll D12
-def d12 ():
-    return random(0,12)
-
-#Roll D20
-def d20 ():
-    return random.randint(0,20)
-
-
+#Ask for which dice needs to be rolled.
 print("Select Dice")
 print("1 - D4")
 print("2 - D6")
@@ -42,22 +17,22 @@ while True:
 
 #Make sure input was valid
     if choice == '1':
-        print(d4)
+        print(random.randint(0,4))
 
     elif choice == '2':
-        print(d6)
+        print(random.randint(0,6))
     
     elif choice == '3':
-        print(d8)
+        print(random.randint(0,8))
 
     elif choice == '4':
-        print(d10)
+        print(random.randint(0,10))
     
     elif choice == '5':
-        print(d12)
+        print(random.randint(0,12))
     
     elif choice == '6':
-        print(d20)
+        print(random.randint(0,20))
     
     else:
         print("Invalid option")
