@@ -2,14 +2,30 @@ import os
 import pygame
 pygame.init()
 
+#create window
+width, height = 1920,1080
+window = pygame.display.set_mode((width,height))
+#framerate stuff
+clock = pygame.time.Clock()
+
+#window name
+pygame.display.set_caption('Move Karl')
+
+#background image
+bg_img = pygame.image.load('images/grass.png')
+bg_img = pygame.transform.scale(bg_img,(width,height))
+
 class Player(object):
     #create the user as karl
-    def __init__(karl):
-        karl = pygame.image.load('images/karl.jpg')
-        karl = pygame.transform.scale(karl, (150,150))
+    def __init__(self):
+        self.karl = pygame.image.load('images/karl.jpg')
+        self.karl = pygame.transform.scale(self.karl, (150,150))
         #this bit here makes a rectangle for karl that will handle collision
-        karl_rect = karl.get_rect()
+        karl_rect = self.karl.get_rect()
         karl_rect.center = (960, 540)
+        #karl's initial position
+        karl_rect.x = 960
+        karl_rect.y = 540
 
     #add key input to move karl
     def movement_keys(karl):
@@ -30,22 +46,10 @@ class Player(object):
                 karl.y += velocity
 
     #spawn karl
-    def spawn(karl, surface):
-          surface.blit(karl, (960, 540))
+    def draw(self, surface):
+        surface.blit(self.karl, (960,540))
 
-player = Player()
-#create window
-width, height = 1920,1080
-window = pygame.display.set_mode((width,height))
-#framerate stuff
-clock = pygame.time.Clock()
-
-#window name
-pygame.display.set_caption('Move Karl')
-
-#background image
-bg_img = pygame.image.load('images/grass.png')
-bg_img = pygame.transform.scale(bg_img,(width,height))
+user = Player()
 
 #main loop
 running = True
@@ -56,9 +60,9 @@ while running:
         if event.type == quit:
             running = False
     #allows you to actually move karl
-    player.movement_keys()
+    user.movement_keys()
     #actually spawns karl
-    player.spawn(window)
+    user.draw(window)
 
 
     pygame.display.update()
