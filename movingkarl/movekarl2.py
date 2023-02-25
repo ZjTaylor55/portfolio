@@ -22,32 +22,32 @@ class Player(object):
         self.karl = pygame.transform.scale(self.karl, (150,150))
         #this bit here makes a rectangle for karl that will handle collision
         karl_rect = self.karl.get_rect()
-        karl_rect.center = (960, 540)
-        #karl's initial position
-        karl_rect.x = 960
-        karl_rect.y = 540
+        karl_rect.center = (150, 150)
 
     #add key input to move karl
-    def movement_keys(karl):
+    def movement_keys(self):
         keys = pygame.key.get_pressed()
+                #karl's initial position
+        self.x = 960
+        self.y = 540
         #how far karl moves
-        velocity = 10
+        velocity = 100 #this needs to be changed back to 10 was increased for testing purposes
 
         if keys[pygame.K_a]:
-                karl.x -= velocity
+                self.x -= velocity
 
         if keys[pygame.K_d]:
-                karl.x += velocity
+                self.x += velocity
 
         if keys[pygame.K_w]:
-                karl.y -= velocity
+                self.y -= velocity
 
         if keys[pygame.K_s]:
-                karl.y += velocity
+                self.y += velocity
 
     #spawn karl
     def draw(self, surface):
-        surface.blit(self.karl, (960,540))
+        surface.blit(self.karl, (self.x, self.y))
 
 user = Player()
 
@@ -63,7 +63,5 @@ while running:
     user.movement_keys()
     #actually spawns karl
     user.draw(window)
-
-
     pygame.display.update()
 pygame.quit()
