@@ -38,7 +38,7 @@ class Fence(object):
         def __init__(self):
                 #make a happy little fence
                 self.fence = pygame.image.load('images/fence.png')
-                self.fence = pygame.transform.scale(self.fence, (100,200))
+                self.fence = pygame.transform.scale(self.fence, (960,400))
                 #this bit here makes a rectangle for the fence that will handle collision
                 fence_rect = self.fence.get_rect()
                 fence_rect.center = (100, 200)
@@ -60,6 +60,9 @@ while running:
         for event in pygame.event.get():
                 if event.type == quit:
                         running = False
+        
+        if user.y < fence.y+200 and user.x >fence.x:
+                user.y += 10
 
         #user input to move karl
         keys = pygame.key.get_pressed()
