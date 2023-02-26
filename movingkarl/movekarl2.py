@@ -15,55 +15,69 @@ pygame.display.set_caption('Move Karl')
 bg_img = pygame.image.load('images/grass.png')
 bg_img = pygame.transform.scale(bg_img,(width,height))
 
+#a class that contains all things relating to the player
 class Player(object):
-    #create the user as karl
-    def __init__(self):
-        self.karl = pygame.image.load('images/karl.jpg')
-        self.karl = pygame.transform.scale(self.karl, (150,150))
-        #this bit here makes a rectangle for karl that will handle collision
-        karl_rect = self.karl.get_rect()
-        karl_rect.center = (150, 150)
-        #karl's initial position
-        self.x = 960
-        self.y = 540
+        #create the user as karl
+        def __init__(self):
+                self.karl = pygame.image.load('images/karl.jpg')
+                self.karl = pygame.transform.scale(self.karl, (150,150))
+                #this bit here makes a rectangle for karl that will handle collision
+                karl_rect = self.karl.get_rect()
+                karl_rect.center = (150, 150)
+                #karl's initial position
+                self.x = 960
+                self.y = 540
+                self.velocity = 10
 
-    #add key input to move karl
-    def movement_keys(self):
-        keys = pygame.key.get_pressed()
+        #spawn karl
+        def draw(self, surface):
+                surface.blit(self.karl, (self.x, self.y))
 
-        #how far karl moves
-        velocity = 100 #this needs to be changed back to 10 was increased for testing purposes
+#class for all fences and their properties
+class Fence(object):
+        def __init__(self):
+                #make a happy little fence
+                self.fence = pygame.image.load('images/fence.png')
+                self.fence = pygame.transform.scale(self.fence, (100,200))
+                #this bit here makes a rectangle for the fence that will handle collision
+                fence_rect = self.fence.get_rect()
+                fence_rect.center = (100, 200)
+                self.x = 100
+                self.y = 200
 
-        if keys[pygame.K_a]:
-                self.x -= velocity
-
-        if keys[pygame.K_d]:
-                self.x += velocity
-
-        if keys[pygame.K_w]:
-                self.y -= velocity
-
-        if keys[pygame.K_s]:
-                self.y += velocity
+        #spawn the fence
+        def draw(self, surface):
+                surface.blit(self.fence, (500,200))
         
-
-    #spawn karl
-    def draw(self, surface):
-        surface.blit(self.karl, (self.x, self.y))
-
 user = Player()
+fence = Fence()
 
 #main loop
 running = True
 while running:
-    window.blit(bg_img,(0,0))
-    clock.tick(60)
-    for event in pygame.event.get():
-        if event.type == quit:
-            running = False
-    #allows you to actually move karl
-    user.movement_keys()
-    #actually spawns karl
-    user.draw(window)
-    pygame.display.update()
+        window.blit(bg_img,(0,0))
+        clock.tick(60)
+        for event in pygame.event.get():
+                if event.type == quit:
+                        running = False
+
+        #user input to move karl
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_a]:
+                user.x -= user.velocity
+
+        if keys[pygame.K_d]:
+                user.x += user.velocity
+
+        if keys[pygame.K_w]:
+                user.y -= user.velocity
+
+        if keys[pygame.K_s]:
+                user.y += user.velocity
+
+        #actually spawns karl
+        user.draw(window)
+        fence.draw(window)
+        pygame.display.update()
 pygame.quit()
