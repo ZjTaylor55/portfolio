@@ -23,13 +23,14 @@ class Player(object):
         #this bit here makes a rectangle for karl that will handle collision
         karl_rect = self.karl.get_rect()
         karl_rect.center = (150, 150)
+        #karl's initial position
+        self.x = 960
+        self.y = 540
 
     #add key input to move karl
     def movement_keys(self):
         keys = pygame.key.get_pressed()
-                #karl's initial position
-        self.x = 960
-        self.y = 540
+
         #how far karl moves
         velocity = 100 #this needs to be changed back to 10 was increased for testing purposes
 
@@ -44,6 +45,7 @@ class Player(object):
 
         if keys[pygame.K_s]:
                 self.y += velocity
+        
 
     #spawn karl
     def draw(self, surface):
