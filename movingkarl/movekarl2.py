@@ -26,7 +26,7 @@ class Player(object):
                 karl_rect.center = (150, 150)
                 #karl's initial position
                 self.x = 960
-                self.y = 540
+                self.y = 600
                 self.velocity = 10
 
         #spawn karl
@@ -60,9 +60,12 @@ while running:
         for event in pygame.event.get():
                 if event.type == quit:
                         running = False
-        
-        if user.y < fence.y+200 and user.x >fence.x:
+                
+        #collision
+        if user.y == fence.y+400 and user.x > fence.x+200 or user.x <= 1440:
                 user.y += 10
+        if user.y == fence.y and user.x > fence.x+200:
+                user.y -= 10
 
         #user input to move karl
         keys = pygame.key.get_pressed()
@@ -79,6 +82,8 @@ while running:
         if keys[pygame.K_s]:
                 user.y += user.velocity
 
+        #karl's coordinates for debugging
+        print(user.x, user.y, fence.x)
         #actually spawns karl
         user.draw(window)
         fence.draw(window)
